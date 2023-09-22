@@ -136,7 +136,6 @@ input:focus {
 .form-container {
     background: #fff;
     max-width: 598px;
-    height: 46px;
     margin: 32px auto;
     border: 1px solid #e0e1e0;
     box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
@@ -145,6 +144,7 @@ input:focus {
 .form-container form {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 100%;
     color: #5f6368;
 }
@@ -155,6 +155,20 @@ input:focus {
     height: 100%;
     padding: 10px;
     margin-left: 10px;
+    width: 100%;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+
+.note-title {
+    border: none;
+    font-size: 1rem;
+    height: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    width: 100%;
+    margin-right: 10px;
+    padding-left: 10px;
 }
 
 .form-actions {
