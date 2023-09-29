@@ -58,6 +58,7 @@ nav {
 .logo-area {
     display: flex;
     align-items: center;
+    margin-right: 10px;
 }
 
 .logo-text {
@@ -211,64 +212,104 @@ input:focus {
     justify-content: center;
     }
     
-    .note {
-      background-color: white;
-      width: 270px;
-      margin: 10px;
-      border: 1px solid #e0e1e0;
-      border-radius: 8px;
-      position: relative;
-    }
+.note {
+    background-color: white;
+    width: 270px;
+    margin: 10px;
+    border: 1px solid #e0e1e0;
+    border-radius: 8px;
+    position: relative;
+}
     
-    .note .title {
-      width: 100%;
-      margin: 15px 0 0 15px ;
-    }
+.note .title {
+    width: 100%;
+    margin: 15px 0 0 15px ;
+}
     
-    .note .text {
-      width: 100%;
-      margin: 10px 0 0 15px;
-    }
+.note .text {
+    width: 100%;
+    margin: 10px 0 0 15px;
+}
     
-    .note .note-footer {
-      margin-top: 15px;
-      display: flex;
-      padding: 0;
-      justify-content: center;
-    }
+.note .note-footer {
+    margin-top: 15px;
+    display: flex;
+    padding: 0;
+    justify-content: center;
+}
     
-    .note-footer .material-symbols-outlined {
-      color: #5f6368;
-    }
+.note-footer .material-symbols-outlined {
+    color: #5f6368;
+}
 
-    .note .check-circle {
-        position: absolute;
-        top: -20px;
-        left: -20px;
-    }
+.note .check-circle {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+}
 
     /* MODAL CONTENT  */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.modal .modal-content {
+    width: 589px;
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+      
+.open-modal {
+    visibility: visible;
+}
+
+/* For small screens, hide the modal */
+@media only screen and (max-width: 768px) {
     .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        width: 100%;
-        height: 100%;
-        visibility: hidden;
+        display: none;
+    }
+}
+
+
+/* For smaller screens, adjust the layout */
+@media only screen and (max-width: 768px) {
+    .form-container {
+        display: none
+    }
+    .sidebar {
+        display: none;
+    }
+    .notes {
+        flex-direction: column; 
+        align-items: center;
+    }
+    .note {
+        width: 80%;
     }
 
-    .modal .modal-content {
-        width: 589px;
-        position: relative;
-        top: 30%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      
-      .open-modal {
-        visibility: visible;
-      }
+    .settings-area {
+        display: flex;
+        font-size: smaller;
+    }
+
+    .profile-actions-area{
+        display: none;
+    }
+
+    input {
+        display: none;
+    }
+}
+
+
 
 
 
