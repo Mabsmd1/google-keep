@@ -105,7 +105,10 @@ input:focus {
     color: #5f6368;
     width: 60px;
     overflow-x: hidden;
+    transition: 0.8s;
 }
+
+
 
 .active {
     background-color: #fef0c3;
