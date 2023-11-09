@@ -8,6 +8,10 @@ class Note {
 
 class App {
   constructor() {
+    // localStorage.setItem('test', JSON.stringify(['123']));
+    // console.log(JSON.parse(localStorage.getItem('test')));
+    this.notes = JSON.parse(localStorage.getItem('notes')) || [];
+    console.log(this.notes);
     this.notes = [new Note("abc1", "test title", "test text")];
     this.selectedNoteId = "";
     this.miniSidebar = true;
@@ -23,8 +27,8 @@ class App {
     this.$modalTitle = document.querySelector("#modal-title");
     this.$modalText = document.querySelector("#modal-text");
     this.$closeModalForm = document.querySelector("#modal-btn");
-    this.$sidebar = document.querySelector(".sidebar")
-
+    this.$sidebar = document.querySelector(".sidebar");
+    this.$sidebarActiveItem = document.querySelector(".active-item");
 
     this.addEventListeners();
     this.displayNotes();
@@ -102,7 +106,7 @@ class App {
   closeModal(event) {
     const isModalFormClickedOn = this.$modalForm.contains(event.target);
     const isCloseModalBtnClickedOn = this.$closeModalForm.contains(event.target);
-    if ((!isModalFormClickedOn || isModalFormClickedOn) && this.$modal.classList.contains("open-modal")) {
+    if ((!isModalFormClickedOn || isCloseModalBtnClickedOn) && this.$modal.classList.contains("open-modal")) {
       this.editNote(this.selectedNoteId, {
         title: this.$modalTitle.value,
         text: this.$modalText.value,
@@ -125,7 +129,7 @@ class App {
     if (text != "") {
       const newNote = new Note(cuid(), title, text);
       this.notes = [...this.notes, newNote];
-      this.displayNotes();
+      this.render();
     }
   }
 
@@ -137,7 +141,7 @@ class App {
       }
       return note;
     });
-    this.displayNotes();
+    this.render();
   }
 
   handleMouseOverNote(element) {
@@ -159,23 +163,33 @@ class App {
   handleToggleSidebar() {
     if(this.miniSidebar) {
       this.$sidebar.style.width = "250px";
-      this.miniSidebar = false;
+      this.$sidebar.classList.add("sidebar-hover")
+      this.$sidebarActiveItem.classList.add("sidebar-active-item");
+      this.miniSidebar = false
     }
     else {
-      this.$sidebar.style.width = "60px";
+      this.$sidebar.style.width = "80px";
+      this.$sidebar.classList.remove("sidebar-hover")
+      this.$sidebarActiveItem.classList.remove("sidebar-active-item");
       this.miniSidebar = true;
     }
   }
-  
 
-// onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleMouseOutNote(this)"
+  saveNotes() {
+    localStorage.setItem('notes', JSON.stringify(this.notes));
+  }
+
+  render() {
+    this.saveNotes();
+    this.displayNotes();
+  }
 
   displayNotes() {
     this.$notes.innerHTML = this.notes
       .map(
         (note) =>
           `
-        <div class="note" id="${note.id}" >
+        <div class="note" id="${note.id}" onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleMouseOutNote(this)">
           <span class="material-symbols-outlined check-circle"
             >check_circle</span
           >
