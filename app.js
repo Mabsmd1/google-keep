@@ -10,11 +10,12 @@ class App {
   constructor() {
     // localStorage.setItem('test', JSON.stringify(['123']));
     // console.log(JSON.parse(localStorage.getItem('test')));
-    this.notes = JSON.parse(localStorage.getItem('notes')) || [];
+    this.notes = [];
     console.log(this.notes);
     this.notes = [new Note("abc1", "test title", "test text")];
     this.selectedNoteId = "";
     this.miniSidebar = true;
+    this.userId = "";
 
     this.$activeForm = document.querySelector(".active-form");
     this.$inactiveForm = document.querySelector(".inactive-form");
@@ -47,6 +48,7 @@ class App {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log(user.uid);
+        this.usedId = user.uid;
         this.$authUserText.innerHTML = user.displayName;
         this.redirectToApp();
       } else {
@@ -78,6 +80,8 @@ class App {
         signInSuccessWithAuthResult: (authResult, redirectUrl) => {
           // User successfully signed in.
           // Return type determines whether we continue the redirect automatically
+         console.log("authResult", authResult.user.uid);
+           this.userId = authResult.user.uid;
           this.$authUserText.innerHTML = user.displayName;
           this.redirectToApp();
         }
@@ -188,7 +192,7 @@ class App {
 
   addNote({ title, text }) {
     if (text != "") {
-      const newNote = new Note(cuid(), title, text);
+      const newNote = {id: cuid(), title, text}
       this.notes = [...this.notes, newNote];
       this.render();
     }
@@ -237,7 +241,7 @@ class App {
   }
 
   saveNotes() {
-    localStorage.setItem('notes', JSON.stringify(this.notes));
+  //  localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 
   render() {
