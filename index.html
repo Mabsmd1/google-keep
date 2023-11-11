@@ -16,7 +16,8 @@
   </head>
   <body>
     <div id="firebaseui-auth-container"></div>
-    <nav>
+    <div id="app">
+  <nav>
       <div class="logo-area">
         <div class="tooltip">
           <span class="material-symbols-outlined hover">menu</span>
@@ -62,9 +63,10 @@
           <span class="material-symbols-outlined hover">apps</span>
           <span class="tooltip-text">Apps</span>
         </div>
-        <div class="tooltip">
+        <div class="tooltip logout">
           <span class="material-symbols-outlined hover">account_circle</span>
-          <span class="tooltip-text">Accounts</span>
+          <span class="tooltip-text">Logout</span>
+          <span class="auth-user"></span>
         </div>
       </div>
     </nav>
@@ -259,6 +261,9 @@
         </div>
       </div>
     </main>
+    </div>
+
+    
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
