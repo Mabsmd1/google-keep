@@ -48,7 +48,7 @@ class App {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log(user.uid);
-        this.usedId = user.uid;
+        this.userId = user.uid;
         this.$authUserText.innerHTML = user.displayName;
         this.redirectToApp();
       } else {
@@ -69,6 +69,7 @@ class App {
   redirectToApp() {
     this.$firebaseAuthContainer.style.display = "none";
     this.$app.style.display = "block";
+    this.fetchNotesFromDB();
   }
 
   redirectToAuth() {
@@ -80,8 +81,8 @@ class App {
         signInSuccessWithAuthResult: (authResult, redirectUrl) => {
           // User successfully signed in.
           // Return type determines whether we continue the redirect automatically
-         console.log("authResult", authResult.user.uid);
-           this.userId = authResult.user.uid;
+         console.log("authResult", authResult.user.uid)
+          this.userId = authResult.user.uid;
           this.$authUserText.innerHTML = user.displayName;
           this.redirectToApp();
         }
@@ -240,9 +241,43 @@ class App {
     }
   }
 
+  fetchNotesFromDB() {
+    var docRef = db.collection("users").doc(this.userId);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data().notes);
+            this.notes = doc.data().notes;
+            this.displayNotes();
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            db.collection("users").doc(this.userId).set({
+                notes: []
+            })
+                .then(() => {
+                    console.log("User successfully created!");
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+}
+
   saveNotes() {
-  //  localStorage.setItem('notes', JSON.stringify(this.notes));
-  }
+    db.collection("users").doc(this.userId).set({
+        notes: this.notes
+    })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      }
 
   render() {
     this.saveNotes();
