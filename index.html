@@ -286,16 +286,23 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
 
-db.collection("users").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-  })
-    .then((docRef) => {
-  console.log("Document written with ID: ", docRef.id);
+     // console.log(auth);
+
+    // Add a new document in collection "cities"
+db.collection("users").doc("actualsigneduserid").set({
+    notes: [
+      {
+          id: "578xbycue",
+          title: "myNotes",
+          text: "TODO today"
+      }
+    ]
+})
+.then(() => {
+    console.log("Document successfully written!");
 })
 .catch((error) => {
-  console.error("Error adding document: ", error);
+    console.error("Error writing document: ", error);
 });
 
     </script>
