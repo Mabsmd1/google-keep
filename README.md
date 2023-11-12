@@ -1,2 +1,2 @@
 # google-keep
- Building a google keep up using HTML, CSS and Javascript.
+ Building a google keep up using HTML, CSS, Javascript and Firebase
