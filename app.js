@@ -70,6 +70,7 @@ class App {
     this.$firebaseAuthContainer.style.display = "none";
     this.$app.style.display = "block";
     this.fetchNotesFromDB();
+    
   }
 
   redirectToAuth() {
